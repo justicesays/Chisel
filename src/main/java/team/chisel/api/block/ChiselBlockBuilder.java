@@ -49,7 +49,8 @@ public class ChiselBlockBuilder<T extends Block & ICarvable> {
     private String parentFolder;
 
     private String group;
-
+    @Accessors(fluent = true)
+    private boolean opaque;
     protected ChiselBlockBuilder(Material material, String domain, String blockName, BlockProvider<T> provider) {
         this.material = material;
         this.domain = domain;
@@ -65,6 +66,7 @@ public class ChiselBlockBuilder<T extends Block & ICarvable> {
 
     public VariationBuilder<T> newVariation(String name, String group) {
         VariationBuilder<T> builder = new VariationBuilder<>(this, name, group, curIndex);
+        builder.opaque(opaque);
         curIndex++;
         return builder;
     }
@@ -150,6 +152,10 @@ public class ChiselBlockBuilder<T extends Block & ICarvable> {
         private ItemStack smeltedFrom;
         private int amountSmelted;
 
+        @Setter
+        @Accessors(fluent = true)
+        private boolean opaque;
+        
         @Setter
         private ResourceLocation textureLocation;
         private Map<EnumFacing, ResourceLocation> overrideMap;
